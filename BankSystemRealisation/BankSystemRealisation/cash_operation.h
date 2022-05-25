@@ -1,9 +1,6 @@
 #pragma once
-#include "bank.h"
+#include "auxiliary_classes.h"
 
-enum OperationStatus { InQueue, Processing, Complete, Rejected };
-enum OperationType { Withdrawal, Replenishment };
-enum OperationPlace { Bank, ATM };
 
 class CashOperation {
 public:

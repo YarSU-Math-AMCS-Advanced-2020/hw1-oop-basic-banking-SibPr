@@ -1,17 +1,6 @@
 #pragma once
-#include "bank.h"
+#include "auxiliary_classes.h"
 
-enum PaymentSystem { Lisa, MasterBart, HoMiR };
-
-struct ShortDate {
-	int month;
-	int year;
-
-	ShortDate(int _month = 1, int _year = 1970) {
-		month = _month;
-		year = _year;
-	}
-};
 
 class Card {
 private:

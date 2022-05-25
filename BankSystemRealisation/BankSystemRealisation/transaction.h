@@ -1,7 +1,6 @@
 #pragma once
-#include "bank.h"
+#include "auxiliary_classes.h"
 
-//enum TransactionStatus { InQueue, Processing, Complete, Rejected };
 
 class Transaction {
 public:

@@ -1,7 +1,5 @@
 #pragma once
-#include "bank.h"
-
-enum Currency { RUB, USD, EUR };
+#include "auxiliary_classes.h"
 
 class Account {
 public:
