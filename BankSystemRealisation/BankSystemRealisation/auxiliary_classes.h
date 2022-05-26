@@ -1,6 +1,12 @@
 #pragma once
+#include <chrono>
+#include <ctime>
+
+typedef std::chrono::system_clock Clock;
+
 enum Currency { RUB, USD, EUR };
 enum PaymentSystem { Lisa, MasterBart, HoMiR };
+enum CardType { debet, credit };
 enum OperationStatus { in_queue, processing, complete, rejected };
 enum OperationType { transaction, withdrawal, replenishment };
 enum OperationPlace { bank, ATM };

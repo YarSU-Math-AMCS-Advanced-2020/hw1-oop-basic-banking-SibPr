@@ -3,8 +3,6 @@
 bool BankSystem::is_valid_client_id(int client_id) {
 	if (client_id < 0 || client_id % 2 == 0 && client_id > last_personal_client_id ||
 		client_id % 2 == 1 && client_id > last_legal_entity_client_id) {
-		//ошибка
-		cout << "Incorrect client id, try again.\n";
 		return false;
 	}
 	return true;
@@ -12,8 +10,13 @@ bool BankSystem::is_valid_client_id(int client_id) {
 
 bool BankSystem::is_valid_account_id(int account_id) {
 	if (account_id < 0 || account_id > last_account_id) {
-		//ошибка
-		cout << "Incorrect client id, try again.\n";
+		return false;
+	}
+	return true;
+}
+
+bool BankSystem::is_valid_card_id(int card_id) {
+	if (card_id < 0 || card_id > last_card_id) {
 		return false;
 	}
 	return true;
@@ -26,19 +29,19 @@ ClientType BankSystem::get_client_type(int client_id) {
 
 void BankSystem::register_personal_client(string name, string surname, string patronymic,
 	string sex, FullDate birth_date, string address, string phone_number, string passport) {
-	PersonalClient new_client(name, surname, patronymic, sex,
+	PersonalClient* new_client = new PersonalClient(name, surname, patronymic, sex,
 		birth_date, address, phone_number, passport);
-	new_client.set_client_id(last_personal_client_id);
-	new_client.set_client_type(Personal);
+	new_client->set_client_id(last_personal_client_id);
+	new_client->set_client_type(Personal);
 	last_personal_client_id += 2;
 	personal_clients.push_back(new_client);
 }
 
 void BankSystem::register_legal_entity_client(string name, 
 	string entity_registration_number, string entity_address) {
-	LegalEntityClient new_client(name, entity_registration_number, entity_address);
-	new_client.set_client_id(last_legal_entity_client_id);
-	new_client.set_client_type(LegalEntity);
+	LegalEntityClient* new_client = new LegalEntityClient(name, entity_registration_number, entity_address);
+	new_client->set_client_id(last_legal_entity_client_id);
+	new_client->set_client_type(LegalEntity);
 	last_legal_entity_client_id += 2;
 	legal_entity_clients.push_back(new_client);
 }
@@ -52,11 +55,11 @@ void BankSystem::change_client_info(int client_id, ClientInfoField property_to_c
 
 	if (client_type == Personal) {
 		switch (property_to_change) {
-		case name: personal_clients[client_id / 2].name = new_property; break;
-		case surname: personal_clients[client_id / 2].surname = new_property; break;
-		case address: personal_clients[client_id / 2].address = new_property; break;
-		case phone_number: personal_clients[client_id / 2].phone_number = new_property; break;
-		case passport: personal_clients[client_id / 2].passport = new_property; break;
+		case name: personal_clients[client_id / 2]->set_name(new_property); break;
+		case surname: personal_clients[client_id / 2]->set_surname(new_property); break;
+		case address: personal_clients[client_id / 2]->set_address(new_property); break;
+		case phone_number: personal_clients[client_id / 2]->set_phone_number(new_property); break;
+		case passport: personal_clients[client_id / 2]->set_passport(new_property); break;
 		default:
 			//ошибка
 			break;
@@ -64,9 +67,9 @@ void BankSystem::change_client_info(int client_id, ClientInfoField property_to_c
 	}
 	else {
 		switch (property_to_change) {
-		case name: legal_entity_clients[client_id / 2].name = new_property; break;
-		case entity_registration_number: legal_entity_clients[client_id / 2].entity_registration_number = new_property; break;
-		case entity_address: legal_entity_clients[client_id / 2].entity_address = new_property; break;
+		case name: legal_entity_clients[client_id / 2]->set_name(new_property); break;
+		case entity_registration_number: legal_entity_clients[client_id / 2]->set_registration_number(new_property); break;
+		case entity_address: legal_entity_clients[client_id / 2]->set_address(new_property); break;
 		default:
 			// ошибка
 			break;
@@ -129,4 +132,24 @@ void BankSystem::close_account_with_withdrawal(int account_id, OperationPlace pl
 		// ошибка
 		return;
 	}
+}
+
+void BankSystem::release_card(int account_id, PaymentSystem payment_system) {
+	if (!is_valid_account_id(account_id)) {
+		// ошибка
+		return;
+	}
+
+	Card* new_card = new Card(last_card_id, accounts[account_id], payment_system);
+	cards.push_back(new_card);
+	last_card_id++;
+}
+
+void BankSystem::rebind_card(int card_id, int account_id) {
+	if (!is_valid_card_id(card_id) || !is_valid_account_id(account_id)) {
+		// ошибка
+		return;
+	}
+
+	cards[card_id]->set_account(accounts[account_id]);
 }

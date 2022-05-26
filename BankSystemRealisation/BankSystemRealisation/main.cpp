@@ -13,7 +13,7 @@ int main() {
 
 	bank.change_client_info(3, ClientInfoField::name, "OOO Everest");
 	for (int i = 0; i < bank.legal_entity_clients.size(); i++) {
-		cout << bank.legal_entity_clients[i].name << endl;
+		cout << bank.legal_entity_clients[i]->get_name() << endl;
 	}
 
 	bank.create_account(8, Currency::USD);
@@ -29,13 +29,7 @@ int main() {
 	bank.accounts[4]->set_balance(212.76);
 	bank.accounts[5]->set_balance(50.11);
 
-	cout << bank.accounts[0]->get_client_id() << endl << bank.accounts[0]->get_balance() << endl;
-
-	bank.close_account_with_transaction(0, 1);
-	cout << bank.accounts[0]->get_client_id() << endl << bank.accounts[0]->get_balance() << endl;
-
-	cout << bank.accounts[0]->get_client_id() << endl << bank.accounts[0]->get_balance() << endl;
-	bank.close_account_with_withdrawal(0, OperationPlace::ATM, 342958);
-	cout << bank.accounts[0]->get_client_id() << endl << bank.accounts[0]->get_balance() << endl;
+	bank.release_card(3, PaymentSystem::Lisa);
+	cout << bank.cards[0]->expiration_date.month << " " << bank.cards[0]->expiration_date.year;
 	return 0;
 }

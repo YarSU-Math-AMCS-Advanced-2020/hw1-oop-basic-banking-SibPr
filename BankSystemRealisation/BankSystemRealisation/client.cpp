@@ -25,12 +25,12 @@ PersonalClient::PersonalClient(string _name, string _surname, string _patronymic
 
 LegalEntityClient::LegalEntityClient() {
 	name = "IndefiniteName";
-	entity_registration_number = "IndefiniteRegistrationNumber";
-	entity_address = "IndefiniteAddress";
+	registration_number = "IndefiniteRegistrationNumber";
+	address = "IndefiniteAddress";
 }
 
-LegalEntityClient::LegalEntityClient(string _name, string _entity_registration_number, string _entity_address) {
+LegalEntityClient::LegalEntityClient(string _name, string _registration_number, string _address) {
 	name = _name;
-	entity_registration_number = _entity_registration_number;
-	entity_address = _entity_address;
+	registration_number = _registration_number;
+	address = _address;
 }
