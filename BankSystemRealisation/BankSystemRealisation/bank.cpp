@@ -86,7 +86,7 @@ void BankSystem::create_account(int client_id, Currency currency) {
 }
 
 void BankSystem::close_account_with_transaction(int account_id, int receiver_account_id) {
-	if (!is_valid_account_id(account_id) || !is_valid_account_id(receiver_account_id)) {
+	if (!is_valid_account_id(account_id) || !is_valid_account_id(receiver_account_id) || account_id == receiver_account_id) {
 		// ошибка
 		return;
 	}
@@ -101,7 +101,29 @@ void BankSystem::close_account_with_transaction(int account_id, int receiver_acc
 	if (transaction->get_transaction_status() == OperationStatus::complete) {
 		delete accounts[account_id];
 		accounts.erase(accounts.begin() + account_id);
+	}
+	else {
+		// ошибка
+		return;
+	}
+}
 
+void BankSystem::close_account_with_withdrawal(int account_id, OperationPlace place, int bank_branch_id) {
+	if (!is_valid_account_id(account_id)) {
+		// ошибка
+		return;
+	}
+
+	Account* account = accounts[account_id];
+	account->set_limit(DBL_MAX);
+	CashOperation* cash_operation = new CashOperation(OperationType::withdrawal, account,
+		account->get_balance(), place, bank_branch_id);
+	cash_operations.push_back(cash_operation);
+	cash_operation->commit_withdrawal_operation();
+
+	if (cash_operation->get_operation_status() == OperationStatus::complete) {
+		delete accounts[account_id];
+		accounts.erase(accounts.begin() + account_id);
 	}
 	else {
 		// ошибка

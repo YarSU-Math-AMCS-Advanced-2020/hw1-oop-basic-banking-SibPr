@@ -17,12 +17,25 @@ int main() {
 	}
 
 	bank.create_account(8, Currency::USD);
-	bank.accounts[0]->set_balance(6000);
 	bank.create_account(4, Currency::USD);
+	bank.create_account(8, Currency::RUB);
+	bank.create_account(3, Currency::USD);
+	bank.create_account(2, Currency::USD);
+	bank.create_account(1, Currency::EUR);
+	bank.accounts[0]->set_balance(6007.80);
+	bank.accounts[1]->set_balance(5504.99);
+	bank.accounts[2]->set_balance(52.87);
+	bank.accounts[3]->set_balance(556.34);
+	bank.accounts[4]->set_balance(212.76);
+	bank.accounts[5]->set_balance(50.11);
 
 	cout << bank.accounts[0]->get_client_id() << endl << bank.accounts[0]->get_balance() << endl;
 
 	bank.close_account_with_transaction(0, 1);
+	cout << bank.accounts[0]->get_client_id() << endl << bank.accounts[0]->get_balance() << endl;
+
+	cout << bank.accounts[0]->get_client_id() << endl << bank.accounts[0]->get_balance() << endl;
+	bank.close_account_with_withdrawal(0, OperationPlace::ATM, 342958);
 	cout << bank.accounts[0]->get_client_id() << endl << bank.accounts[0]->get_balance() << endl;
 	return 0;
 }

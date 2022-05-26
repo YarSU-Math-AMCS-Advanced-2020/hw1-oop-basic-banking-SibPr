@@ -32,5 +32,5 @@ public:
 	void change_client_info(int client_id, ClientInfoField property_to_change, string new_property);
 	void create_account(int client_id, Currency currency);
 	void close_account_with_transaction(int account_id, int receiver_account_id);
-	void close_account_with_withdrawal(int account_id);
+	void close_account_with_withdrawal(int account_id, OperationPlace place, int bank_branch_id);
 };

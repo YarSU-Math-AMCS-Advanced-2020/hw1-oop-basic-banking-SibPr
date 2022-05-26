@@ -10,8 +10,5 @@ public:
 	PaymentSystem payment_system;
 	ShortDate expiration_date;
 
-	Card() {
-		account = new Account();
-	}
 	Account* get_account() { return account; }
 };
