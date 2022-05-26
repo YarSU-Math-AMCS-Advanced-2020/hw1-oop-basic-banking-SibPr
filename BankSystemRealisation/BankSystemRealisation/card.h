@@ -3,9 +3,8 @@
 
 
 class Card {
-private:
-	Account& account;
 public:
+	Account& account;
 	int card_id;
 	bool is_debet = true;
 	PaymentSystem payment_system;

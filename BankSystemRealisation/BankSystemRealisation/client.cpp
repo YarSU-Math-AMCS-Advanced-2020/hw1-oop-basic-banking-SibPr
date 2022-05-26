@@ -34,3 +34,14 @@ LegalEntityClient::LegalEntityClient(string _name, string _entity_registration_n
 	entity_registration_number = _entity_registration_number;
 	entity_address = _entity_address;
 }
+
+void Client::create_account(Currency currency) {
+	accounts.push_back(new Account(client_id, currency));
+}
+
+vector<Account> Client::get_accounts() {
+	vector<Account> tmp;
+	for (int i = 0; i < accounts.size(); i++)
+		tmp.push_back(*accounts[i]);
+	return tmp;
+}
