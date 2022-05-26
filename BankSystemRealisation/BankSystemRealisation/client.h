@@ -12,13 +12,9 @@ class Client {
 public:
 	int client_id = 0;
 	ClientType client_type;
-	vector<Account*> accounts;
-	vector<Card*> cards;
 
 	void set_client_id(int _client_id) { client_id = _client_id; }
 	void set_client_type(ClientType _client_type) { client_type = _client_type; }
-	void create_account(Currency currency);
-	vector<Account> get_accounts();
 };
 
 

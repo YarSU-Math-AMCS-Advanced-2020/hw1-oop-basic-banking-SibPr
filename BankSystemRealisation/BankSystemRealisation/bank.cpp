@@ -1,8 +1,17 @@
 #include "bank.h"
 
-bool BankSystem::is_valid_id(int client_id) {
-	if (client_id < 0 || client_id % 2 == 0 && client_id > 2 * personal_clients.size() - 2 ||
-		client_id % 2 == 1 && client_id > 2 * legal_entity_clients.size() - 1) {
+bool BankSystem::is_valid_client_id(int client_id) {
+	if (client_id < 0 || client_id % 2 == 0 && client_id > last_personal_client_id ||
+		client_id % 2 == 1 && client_id > last_legal_entity_client_id) {
+		//ошибка
+		cout << "Incorrect client id, try again.\n";
+		return false;
+	}
+	return true;
+}
+
+bool BankSystem::is_valid_account_id(int account_id) {
+	if (account_id < 0 || account_id > last_account_id) {
 		//ошибка
 		cout << "Incorrect client id, try again.\n";
 		return false;
@@ -35,7 +44,10 @@ void BankSystem::register_legal_entity_client(string name,
 }
 
 void BankSystem::change_client_info(int client_id, ClientInfoField property_to_change, string new_property) {
-	if (!this->is_valid_id(client_id)) return;
+	if (!is_valid_client_id(client_id)) {
+		// ошибка
+		return;
+	}
 	ClientType client_type = this->get_client_type(client_id);
 
 	if (client_type == Personal) {
@@ -63,6 +75,36 @@ void BankSystem::change_client_info(int client_id, ClientInfoField property_to_c
 }
 
 void BankSystem::create_account(int client_id, Currency currency) {
-	if (!this->is_valid_id(client_id)) return;
-	personal_clients[client_id / 2].create_account(currency);
+	if (!is_valid_client_id(client_id)) {
+		// ошибка
+		return;
+	}
+
+	Account *new_account = new Account(last_account_id, client_id, currency);
+	accounts.push_back(new_account);
+	last_account_id++;
+}
+
+void BankSystem::close_account_with_transaction(int account_id, int receiver_account_id) {
+	if (!is_valid_account_id(account_id) || !is_valid_account_id(receiver_account_id)) {
+		// ошибка
+		return;
+	}
+
+	Account* sender_account = accounts[account_id];
+	Account* receiver_account = accounts[receiver_account_id];
+	sender_account->set_limit(DBL_MAX);
+	Transaction *transaction = new Transaction(sender_account, receiver_account, sender_account->get_balance());
+	transactions.push_back(transaction);
+	transaction->commit_transaction();
+
+	if (transaction->get_transaction_status() == OperationStatus::complete) {
+		delete accounts[account_id];
+		accounts.erase(accounts.begin() + account_id);
+
+	}
+	else {
+		// ошибка
+		return;
+	}
 }

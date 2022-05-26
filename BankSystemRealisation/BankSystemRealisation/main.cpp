@@ -17,9 +17,12 @@ int main() {
 	}
 
 	bank.create_account(8, Currency::USD);
-	vector<Account> tmp = bank.personal_clients[4].get_accounts();
-	for (int i = 0; i < tmp.size(); i++)
-		cout << tmp[i].account_id << " " << tmp[i].currency << " " <<
-		tmp[i].balance << " " << tmp[i].limit << " " << endl;
+	bank.accounts[0]->set_balance(6000);
+	bank.create_account(4, Currency::USD);
+
+	cout << bank.accounts[0]->get_client_id() << endl << bank.accounts[0]->get_balance() << endl;
+
+	bank.close_account_with_transaction(0, 1);
+	cout << bank.accounts[0]->get_client_id() << endl << bank.accounts[0]->get_balance() << endl;
 	return 0;
 }

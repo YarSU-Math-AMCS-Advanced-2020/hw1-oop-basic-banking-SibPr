@@ -4,11 +4,14 @@
 
 class Card {
 public:
-	Account& account;
+	Account* account;
 	int card_id;
 	bool is_debet = true;
 	PaymentSystem payment_system;
 	ShortDate expiration_date;
 
-	Account& get_account() { return this->account; }
+	Card() {
+		account = new Account();
+	}
+	Account* get_account() { return account; }
 };

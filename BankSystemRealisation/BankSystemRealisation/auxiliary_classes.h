@@ -1,10 +1,9 @@
 #pragma once
 enum Currency { RUB, USD, EUR };
 enum PaymentSystem { Lisa, MasterBart, HoMiR };
-enum OperationStatus { InQueue, Processing, Complete, Rejected };
-enum OperationType { Withdrawal, Replenishment };
-enum OperationPlace { Bank, ATM };
-//enum TransactionStatus { InQueue, Processing, Complete, Rejected };
+enum OperationStatus { in_queue, processing, complete, rejected };
+enum OperationType { transaction, withdrawal, replenishment };
+enum OperationPlace { bank, ATM };
 enum ClientType { Personal, LegalEntity };
 enum ClientInfoField { name, surname, patronymic, sex, birth_date, address,
 	phone_number, passport, entity_registration_number, entity_address };

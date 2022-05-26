@@ -4,8 +4,8 @@
 
 class CashOperation {
 public:
-	Card& card;
-	Account& account = card.get_account();
+	Card* card;
+	Account* account = card->get_account();
 	OperationType type;
 	int amount;
 	Currency currency;
