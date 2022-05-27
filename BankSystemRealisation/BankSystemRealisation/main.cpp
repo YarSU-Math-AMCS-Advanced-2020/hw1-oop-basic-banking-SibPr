@@ -12,11 +12,8 @@ int main() {
 	bank.register_legal_entity_client("ZAO Fact Channel", "58792655", "St. Petersburg, Pushkina str., 45");
 
 	bank.change_client_info(3, ClientInfoField::name, "OOO Everest");
-	for (int i = 0; i < bank.legal_entity_clients.size(); i++) {
-		cout << bank.legal_entity_clients[i]->get_name() << endl;
-	}
 
-	bank.create_account(8, Currency::USD);
+	/*bank.create_account(8, Currency::USD);
 	bank.create_account(4, Currency::USD);
 	bank.create_account(8, Currency::RUB);
 	bank.create_account(3, Currency::USD);
@@ -32,6 +29,6 @@ int main() {
 	bank.release_card(2, PaymentSystem::Lisa);
 	bank.release_card(4, PaymentSystem::HoMiR);
 	bank.commit_transaction(0, 1, 1000);
-	cout << bank.accounts[2]->get_balance() << " " << bank.accounts[4]->get_balance();
+	cout << bank.accounts[2]->get_balance() << " " << bank.accounts[4]->get_balance();*/
 	return 0;
 }

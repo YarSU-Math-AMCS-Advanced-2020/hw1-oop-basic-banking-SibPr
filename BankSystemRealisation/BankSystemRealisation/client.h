@@ -9,17 +9,18 @@ using namespace std;
 
 
 class Client {
-public:
+private:
 	int client_id = 0;
 	ClientType client_type;
 
+public:
 	void set_client_id(int _client_id) { client_id = _client_id; }
 	void set_client_type(ClientType _client_type) { client_type = _client_type; }
 };
 
 
 class PersonalClient : public Client {
-public:
+private:
 	string name;
 	string surname;
 	string patronymic;
@@ -29,6 +30,7 @@ public:
 	string phone_number;
 	string passport;
 
+public:
 	PersonalClient();
 	PersonalClient(string _name, string _surname, string _patronymic, string _sex,
 		FullDate _birth_date, string _address, string _phone_number, string _passport);
@@ -54,11 +56,12 @@ public:
 
 
 class LegalEntityClient : public Client {
-public:
+private:
 	string name;
 	string registration_number;
 	string address;
 
+public:
 	LegalEntityClient();
 	LegalEntityClient(string _name, string _registration_number, string _address);
 

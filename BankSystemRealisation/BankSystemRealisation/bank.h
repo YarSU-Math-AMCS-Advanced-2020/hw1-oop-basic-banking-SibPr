@@ -11,7 +11,7 @@ using namespace std;
 
 
 class BankSystem {
-public:
+private:
 	vector<PersonalClient*> personal_clients;
 	vector<LegalEntityClient*> legal_entity_clients;
 	vector<Account*> accounts;
@@ -24,6 +24,7 @@ public:
 	int last_account_id = 0;
 	int last_card_id = 0;
 
+public:
 	bool is_valid_client_id(int client_id);
 	bool is_valid_account_id(int account_id);
 	bool is_valid_card_id(int card_id);

@@ -1,22 +1,18 @@
 #pragma once
 #include "auxiliary_classes.h"
 
+
 class Account {
-public:
+private:
 	int account_id;
 	int client_id;
 	Currency currency;
 	double balance;
 	double account_limit;
 
+public:
 	Account(int _account_id = -1, int _client_id = -1, Currency _currency = Currency::USD,
-		double _balance = 0, double _limit = 15000) {
-		account_id = _account_id;
-		client_id = _client_id;
-		currency = _currency;
-		balance = _balance;
-		account_limit = _limit;
-	}
+		double _balance = 0, double _limit = 15000);
 
 	int get_account_id() { return account_id; }
 	int get_client_id() { return client_id; }
