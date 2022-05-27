@@ -14,7 +14,8 @@ private:
 	double card_limit;
 
 public:
-	Card(int _card_id, Account* _account, PaymentSystem _payment_system, double _card_limit = 10000);
+	Card(int _card_id, Account* _account, PaymentSystem _payment_system,
+		double _card_limit = 10000);
 
 	int get_card_id() { return card_id; }
 	Account* get_account() { return account; }

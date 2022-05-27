@@ -11,8 +11,8 @@ enum OperationStatus { in_queue, processing, complete, rejected };
 enum OperationType { transaction, withdrawal, replenishment };
 enum OperationPlace { bank, ATM };
 enum ClientType { Personal, LegalEntity };
-enum ClientInfoField { name, surname, patronymic, sex, birth_date, address,
-	phone_number, passport, entity_registration_number, entity_address };
+enum ClientInfoField { Name, Surname, Patronymic, Sex, BirthDate, Address,
+	PhoneNumber, Passport, RegistrationNumber};
 
 struct FullDate {
 	int day;

@@ -66,8 +66,8 @@ public:
 	LegalEntityClient(string _name, string _registration_number, string _address);
 
 	string get_name() { return name; }
-	string get_entity_registration_number() { return registration_number; }
-	string get_entity_address() { return address; }
+	string get_registration_number() { return registration_number; }
+	string get_address() { return address; }
 
 	void set_name(string _name) { name = _name; }
 	void set_registration_number(string _registration_number) { 

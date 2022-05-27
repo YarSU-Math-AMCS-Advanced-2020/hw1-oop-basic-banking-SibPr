@@ -1,4 +1,5 @@
 #include "transaction.h"
+#include <iostream>
 
 Transaction::Transaction(Account* _sender_account, Account* _receiver_account, double _amount) {
 	this->sender_account = _sender_account;
@@ -12,9 +13,18 @@ Transaction::Transaction(Account* _sender_account, Account* _receiver_account, d
 void Transaction::commit_transaction() {
 	current_status = processing;
 
-	if (currency != receiver_account->get_currency() ||
-		amount > sender_account->get_balance() || amount > sender_account->get_limit()) {
-		// ошибка
+	if (currency != receiver_account->get_currency()) {
+		std::cout << std::endl << "Error: Account currencies do not match" << std::endl;
+		current_status = rejected;
+		return;
+	}
+	else if (amount > sender_account->get_balance()) {
+		std::cout << std::endl << "Error: Insufficient funds" << std::endl;
+		current_status = rejected;
+		return;
+	}
+	else if (amount > sender_account->get_account_limit()) {
+		std::cout << std::endl << "Error: The amount exceeds the limit" << std::endl;
 		current_status = rejected;
 		return;
 	}

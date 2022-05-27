@@ -15,8 +15,18 @@ CashOperation::CashOperation(OperationType _type, Account* _account,
 void CashOperation::commit_withdrawal_operation() {
 	current_status = processing;
 
-	if (type != OperationType::withdrawal || amount > account->get_balance() || amount > account->get_limit()) {
-		// ошибка
+	if (type != OperationType::withdrawal) {
+		// ошибка Invalid operation type
+		current_status = rejected;
+		return;
+	}
+	else if (amount > account->get_balance()) {
+		// ошибка Insufficient funds
+		current_status = rejected;
+		return;
+	}
+	else if (amount > account->get_account_limit()) {
+		// ошибка The amount exceeds the limit
 		current_status = rejected;
 		return;
 	}
@@ -30,8 +40,13 @@ void CashOperation::commit_withdrawal_operation() {
 void CashOperation::commit_replenishment_operation() {
 	current_status = processing;
 
-	if (type != OperationType::replenishment || amount > account->get_limit()) {
-		// ошибка
+	if (type != OperationType::replenishment) {
+		// ошибка Invalid operation type
+		current_status = rejected;
+		return;
+	}
+	else if (amount > account->get_account_limit()) {
+		// ошибка The amount exceeds the limit
 		current_status = rejected;
 		return;
 	}

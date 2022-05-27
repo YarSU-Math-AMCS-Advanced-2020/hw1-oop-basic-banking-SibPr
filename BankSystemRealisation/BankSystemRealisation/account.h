@@ -18,7 +18,7 @@ public:
 	int get_client_id() { return client_id; }
 	Currency get_currency() { return currency; }
 	double get_balance() { return balance; }
-	double get_limit() { return account_limit; }
+	double get_account_limit() { return account_limit; }
 
 	void set_balance(double _balance) { balance = _balance; }
 	void set_limit(double _limit) { account_limit = _limit; }

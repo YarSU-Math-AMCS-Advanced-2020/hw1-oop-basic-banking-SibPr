@@ -1,6 +1,7 @@
 #include "card.h"
 
-Card::Card(int _card_id, Account* _account, PaymentSystem _payment_system, double _card_limit) {
+Card::Card(int _card_id, Account* _account, 
+	PaymentSystem _payment_system, double _card_limit) {
 	card_id = _card_id;
 	account = _account;
 	payment_system = _payment_system;
