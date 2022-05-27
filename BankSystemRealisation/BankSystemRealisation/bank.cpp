@@ -153,3 +153,32 @@ void BankSystem::rebind_card(int card_id, int account_id) {
 
 	cards[card_id]->set_account(accounts[account_id]);
 }
+
+void BankSystem::commit_transaction(int sender_card_id, int receiver_card_id, double amount) {
+	if (!is_valid_account_id(sender_card_id) || !is_valid_account_id(receiver_card_id) 
+		|| sender_card_id == receiver_card_id) {
+		// ошибка
+		return;
+	}
+
+	Account* sender_account = cards[sender_card_id]->get_account();
+	Account* receiver_account = cards[receiver_card_id]->get_account();
+
+	Transaction* transaction = new Transaction(sender_account, receiver_account, amount);
+	transactions.push_back(transaction);
+	transaction->commit_transaction();
+}
+
+void BankSystem::commit_cash_operation(OperationType type, int card_id, double amount, OperationPlace place, int bank_branch_id) {
+	if (!is_valid_card_id(card_id) || (type != OperationType::withdrawal && type != OperationType::replenishment)) {
+		// ошибка
+		return;
+	}
+
+	Account* account = cards[card_id]->get_account();
+
+	CashOperation* operation = new CashOperation(type, account, amount, place, bank_branch_id);
+	cash_operations.push_back(operation);
+	if (type == OperationType::withdrawal) operation->commit_withdrawal_operation();
+	else operation->commit_replenishment_operation();
+}

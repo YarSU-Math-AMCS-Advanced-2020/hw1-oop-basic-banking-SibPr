@@ -7,7 +7,7 @@ public:
 	int client_id;
 	Currency currency;
 	double balance;
-	double limit;
+	double account_limit;
 
 	Account(int _account_id = -1, int _client_id = -1, Currency _currency = Currency::USD,
 		double _balance = 0, double _limit = 15000) {
@@ -15,15 +15,15 @@ public:
 		client_id = _client_id;
 		currency = _currency;
 		balance = _balance;
-		limit = _limit;
+		account_limit = _limit;
 	}
 
 	int get_account_id() { return account_id; }
 	int get_client_id() { return client_id; }
 	Currency get_currency() { return currency; }
 	double get_balance() { return balance; }
-	double get_limit() { return limit; }
+	double get_limit() { return account_limit; }
 
 	void set_balance(double _balance) { balance = _balance; }
-	void set_limit(double _limit) { limit = _limit; }
+	void set_limit(double _limit) { account_limit = _limit; }
 };

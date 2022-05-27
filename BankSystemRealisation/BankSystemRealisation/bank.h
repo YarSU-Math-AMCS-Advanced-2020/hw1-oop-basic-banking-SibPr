@@ -38,4 +38,6 @@ public:
 	void close_account_with_withdrawal(int account_id, OperationPlace place, int bank_branch_id);
 	void release_card(int account_id, PaymentSystem payment_system);
 	void rebind_card(int card_id, int account_id);
+	void commit_transaction(int sender_card_id, int receiver_card_id, double amount);
+	void commit_cash_operation(OperationType type, int card_id, double amount, OperationPlace place, int bank_branch_id);
 };

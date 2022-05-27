@@ -29,7 +29,9 @@ int main() {
 	bank.accounts[4]->set_balance(212.76);
 	bank.accounts[5]->set_balance(50.11);
 
-	bank.release_card(3, PaymentSystem::Lisa);
-	cout << bank.cards[0]->expiration_date.month << " " << bank.cards[0]->expiration_date.year;
+	bank.release_card(2, PaymentSystem::Lisa);
+	bank.release_card(4, PaymentSystem::HoMiR);
+	bank.commit_transaction(0, 1, 1000);
+	cout << bank.accounts[2]->get_balance() << " " << bank.accounts[4]->get_balance();
 	return 0;
 }
